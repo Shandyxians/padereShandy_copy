@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -24,6 +25,17 @@ return new class extends Migration
 
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade")->onUpdate("cascade");
         });
+        DB::table('notifications')->insert([
+            [
+                "title" => "Reservation Request",
+                "message" => "Reservation has been accepted",
+                "type" => "reservation_request",
+                "created_at" => now(),
+                "user_id" => 1,
+                "reservation_id" => 1
+            ]
+        ]);
+        
     }
 
     /**
